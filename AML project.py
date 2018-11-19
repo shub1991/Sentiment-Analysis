@@ -12,7 +12,9 @@ from nltk.corpus import stopwords
 from sklearn.utils import resample
 import seaborn as sns
 import matplotlib.pyplot as plt
+import time
 
+t1 = time.time()
 
 #Importing the train and test files into Data Frames.
 train_file = pd.read_csv("train.tsv", sep="\t")
@@ -51,7 +53,12 @@ fig, ax = plt.subplots(figsize=(12,8))
 sns.barplot(plot_train_downsampled.keys(), plot_train_downsampled.values)
 
 
-#Data Cleaning of train set
+
+#Important Feature Extraction Before Cleaning:
+
+
+
+#Data Cleaning of train set:
 def preprocess(given_review):
     review = given_review
     review = re.sub('[^a-zA-Z]', ' ',review)
@@ -64,12 +71,35 @@ def preprocess(given_review):
 
 #Applying the preprocess function on the Phrase coloumn to clean the data
 train_downsampled['Cleaned_Phrase'] = train_downsampled["Phrase"].apply(lambda x :preprocess(x))
+train_downsampled.to_csv("train_proj.tsv", sep='\t', index = False)
+
+
+t2 = time.time()
+
+print(t2-t1)
+#TF-IDF
+#Naive-Bayes
+#Bi-gram Fail
+#SVM Multiclassifier
 
 
 
-#X_train, X_test, y_train, y_test = train_test_split(df, y, test_size=0.2)
-#print (X_train.shape, y_train.shape)
-#print (X_test.shape, y_test.shape)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
